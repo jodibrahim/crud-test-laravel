@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\UserNew as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +17,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users|max:50',
+            'nama' => 'required',
+            'email' => 'required|email|unique:tbl_user|max:50',
             'password' => 'required|min:6|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/|confirmed',
             'nohp' => 'required|numeric',
         ]);
@@ -30,7 +30,7 @@ class AuthController extends Controller
         }
 
         $user = new User;
-        $user->name = $request->name;
+        $user->nama = $request->nama;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->nohp = $request->nohp;

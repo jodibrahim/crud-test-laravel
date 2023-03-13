@@ -60,7 +60,7 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'tbl_user' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],

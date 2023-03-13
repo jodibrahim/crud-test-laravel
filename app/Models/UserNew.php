@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class UserNew extends Model
 {
+    use HasFactory;
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -19,7 +21,7 @@ class User extends Authenticatable
     protected $table = 'tbl_user';
 
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
         'nohp',
