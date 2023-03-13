@@ -21,7 +21,7 @@ class UserNew extends Model
     protected $table = 'tbl_user';
 
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
         'nohp',
