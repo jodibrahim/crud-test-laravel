@@ -6,6 +6,7 @@ use App\Models\UserNew as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -17,9 +18,9 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:tbl_user|max:50',
-            'password' => 'required|min:6|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/|confirmed',
+            'password' => 'required|min:6',
             'nohp' => 'required|numeric',
         ]);
 
@@ -29,12 +30,15 @@ class AuthController extends Controller
                 ->withInput();
         }
 
-        $user = new User;
-        $user->nama = $request->nama;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->nohp = $request->nohp;
-        $user->save();
+        $input = $request->all();
+        DB::table('tbl_user')->insert([
+            'nama' => $input['name'],
+            'email' => $input['email'],
+            'password' => bcrypt($input['password']),
+            'nohp' => $input['nohp'],
+            'alamat' => 'Jalan Sesama',
+            'akses' => '0'
+        ]);
 
         return redirect('/login');
     }
@@ -67,5 +71,4 @@ class AuthController extends Controller
 
         return redirect('/');
     }
-
 }
