@@ -18,9 +18,9 @@ class UserWeb
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->akses == '0') {
+        if ($request->user()->akses == '1') {
             return $next($request);
         }
-        abort(403, 'Akses khusus user');
+        abort(403, 'Akses User Website');
     }
 }

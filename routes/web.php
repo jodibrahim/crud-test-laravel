@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +32,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware(['user.auth'])->group(function () {
-    // Routes for authenticated non-admin users
+    // Route for CMS
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+Route::middleware(['public.auth'])->group(function () {
+    // Routes for Website
+    Route::get('/public/home', [HomeController::class, 'publicHome'])->name('public.home');
 });

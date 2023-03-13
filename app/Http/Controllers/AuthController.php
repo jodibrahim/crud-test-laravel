@@ -53,9 +53,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/');
+            if (auth()->user()->akses == '0') {
+                return redirect()->route('home');
+            } else if (auth()->user()->akses == '1') {
+                return redirect()->route('public.home');
+            }
         }
 
         return back()->withErrors([
