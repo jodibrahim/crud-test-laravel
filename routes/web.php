@@ -22,7 +22,12 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware(['user.auth'])->group(function () {
     // Routes for authenticated non-admin users

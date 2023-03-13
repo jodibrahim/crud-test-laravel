@@ -40,7 +40,7 @@ class AuthController extends Controller
             'akses' => '0'
         ]);
 
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function showLoginForm()
@@ -53,10 +53,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/home');
+            $request->session()->regenerate();
+
+            return redirect()->intended('/');
         }
 
-        return redirect('/login')->withErrors([
+        return back()->withErrors([
             'email' => 'Email atau password salah',
         ]);
     }
