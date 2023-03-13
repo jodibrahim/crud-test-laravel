@@ -19,11 +19,9 @@ class UserCms
 
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->akses == '1') {
+        if ($request->user()->akses == '0') {
             return $next($request);
         }
-        abort(403, 'Akses khusus admin');
-    
+        abort(403, 'Akses User CMS');
     }
-
 }
